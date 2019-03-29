@@ -98,13 +98,11 @@ class GaloisField:
             yield cls(value)
 
     def __init__(self, value):
-
         if hasattr(value, "coeff"):
             _, self.poly = divmod(
                 value,
                 self.GENERATOR
             )
-
         else:
             _, self.poly = divmod(
                 self.POLY_FACTORY(*dec2bin(value, width=2**self.POWER)),

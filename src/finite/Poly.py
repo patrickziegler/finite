@@ -15,7 +15,6 @@
 
 
 import numpy as np
-from .Euclid import gcd
 
 
 def auto_cast_poly(fn):
@@ -71,18 +70,7 @@ class Poly:
         return cls(*coeff).trim()
 
     def __repr__(self):
-        s, l = "", len(self.coeff)
-        for i, c in enumerate(self.coeff):
-            if c != 0:
-                s += str(c)
-                e = l - i - 1
-                if e == 0:
-                    s += " + "
-                elif e == 1:
-                    s += "*x" + " + "
-                else:
-                    s += "*x^" + str(e) + " + "
-        return s[0:-3]
+        return " + ".join([str(c) + "*X^" + str(len(self.coeff) - i - 1) for i, c in enumerate(self.coeff)])
 
     def __abs__(self):
         """
