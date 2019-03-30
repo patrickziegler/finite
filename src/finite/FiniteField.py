@@ -30,40 +30,40 @@ def auto_cast_finite_field(fn):
 
 class FiniteField:
 
-    MODULO = 2
+    modulo = 2
 
     @staticmethod
     def factory(modulo=2):
         class cls(FiniteField):
             pass
 
-        cls.MODULO = modulo
+        cls.modulo = modulo
         cls.__name__ = "Z/%d" % modulo
 
         return cls
 
     @classmethod
     def __len__(cls):
-        return cls.MODULO
+        return cls.modulo
 
     @classmethod
     def elements(cls):
         """
-        :return: yields all *nonzero* field elements
+        :return: yields all *non-zero* field elements
         """
-        for element in range(1, cls.MODULO):
+        for element in range(1, cls.modulo):
             yield element
 
     def __init__(self, value, modulo=None):
         if modulo is not None:
-            self.MODULO = modulo
+            self.modulo = modulo
         try:
-            self.value = value % self.MODULO
+            self.value = value % self.modulo
         except TypeError:
-            self.value = value.value % self.MODULO
+            self.value = value.value % self.modulo
 
     def __repr__(self):
-        return "(" + str(self.value) + " mod " + str(self.MODULO) + ")"
+        return "(" + str(self.value) + " mod " + str(self.modulo) + ")"
 
     def __abs__(self):
         return abs(self.value)
@@ -73,7 +73,7 @@ class FiniteField:
 
     @auto_cast_finite_field
     def __eq__(self, other):
-        return self.value == other.value % self.MODULO
+        return self.value == other.value % self.modulo
 
     @auto_cast_finite_field
     def __ne__(self, other):
@@ -117,5 +117,5 @@ class FiniteField:
         return self.__class__(q), self.__class__(r)
 
     def inverse(self):
-        x, _, _ = extended_euclidean(self.value, self.MODULO)
+        x, _, _ = extended_euclidean(self.value, self.modulo)
         return self.__class__(x)

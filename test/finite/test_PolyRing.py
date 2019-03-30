@@ -2,7 +2,7 @@ import unittest
 
 from src.finite.FiniteField import FiniteField
 from src.finite.Poly import Poly
-from src.finite.PolyRing import GaloisField
+from src.finite.PolyRing import PolyRing
 
 
 class PolyRingTest(unittest.TestCase):
@@ -11,18 +11,21 @@ class PolyRingTest(unittest.TestCase):
         super().__init__(*args, **kwargs)
 
     def test_poly_ring_1(self):
-        poly = Poly.factory(field=FiniteField.factory(modulo=2))
-        self.assertEqual(GaloisField(13), poly(1, 1, 0))
+        z2 = FiniteField.factory(modulo=2)
+        poly = Poly.factory(field=z2)
+        self.assertEqual(PolyRing(13), poly(1, 1, 0))
 
     def test_poly_ring_2(self):
-        gf2 = GaloisField.factory(power=3)
-        poly = Poly.factory(field=gf2.FIELD)
+        GF2 = PolyRing.factory(modulo=2, power=3)
+
+        z2 = FiniteField.factory(modulo=2)
+        poly = Poly.factory(field=z2)
 
         p1 = poly(1, 0, 0, 1, 1)
         p2 = poly(1, 1, 0, 1, 0)
 
-        p1gf2 = gf2(p1)
-        p2gf2 = gf2(p2)
+        p1gf2 = GF2(p1)
+        p2gf2 = GF2(p2)
 
         s = p1 + p2
         sgf2 = p1gf2 + p2gf2
@@ -31,14 +34,16 @@ class PolyRingTest(unittest.TestCase):
         self.assertEqual(sgf2, poly(1, 0))
 
     def test_poly_ring_3(self):
-        gf2 = GaloisField.factory(power=3)
-        poly = Poly.factory(field=gf2.FIELD)
+        GF2 = PolyRing.factory(modulo=2, power=3)
+
+        z2 = FiniteField.factory(modulo=2)
+        poly = Poly.factory(field=z2)
 
         p1 = poly(1, 0, 1)
         p2 = poly(1, 1, 1)
 
-        p1gf2 = gf2(p1)
-        p2gf2 = gf2(p2)
+        p1gf2 = GF2(p1)
+        p2gf2 = GF2(p2)
 
         s = p1 * p2
         sgf2 = p1gf2 * p2gf2
