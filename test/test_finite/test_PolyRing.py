@@ -1,14 +1,9 @@
 import unittest
 
-from src.finite.FiniteField import FiniteField
-from src.finite.Poly import Poly
-from src.finite.PolyRing import PolyRing
+from finite import *
 
 
 class PolyRingTest(unittest.TestCase):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     def test_poly_ring_1(self):
         PolyMod2 = Poly.factory(modulo=2)

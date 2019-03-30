@@ -15,7 +15,7 @@
 
 
 import numpy as np
-from .Poly import Poly
+from finite.Poly import Poly
 
 
 _known_generators = {

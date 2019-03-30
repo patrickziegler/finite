@@ -1,12 +1,9 @@
 import unittest
 
-from src.finite.FiniteField import FiniteField
+from finite import *
 
 
 class FiniteFieldTest(unittest.TestCase):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     def test_finite_field_1(self):
         z2 = FiniteField.factory(modulo=2)

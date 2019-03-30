@@ -1,14 +1,9 @@
 import unittest
 
-from src.finite.Euclid import extended_euclidean, gcd, lcm
-from src.finite.FiniteField import FiniteField
-from src.finite.Poly import Poly
+from finite import *
 
 
 class EuclidTest(unittest.TestCase):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     def test_euclid_1(self):
         a = 4864

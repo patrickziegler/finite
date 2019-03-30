@@ -15,7 +15,7 @@
 
 
 import numpy as np
-from .FiniteField import FiniteField
+from finite.FiniteField import FiniteField
 
 
 def auto_cast_poly(fn):
