@@ -16,7 +16,7 @@ The following packages are needed
 
 1. Clone this repository
 ```bash
-git clone --recursive https://github.com/patrickziegler/finite.git && cd finite
+git clone https://github.com/patrickziegler/finite.git && cd finite
 ```
 
 2. Create and activate a virtual environment
