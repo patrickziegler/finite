@@ -55,7 +55,7 @@ class Poly:
 
     def __init__(self, *args):
         if self.field is None:
-            self.coeff = np.asarray([*args])
+            self.coeff = np.asarray(args)
         else:
             self.coeff = np.asarray([self.field(arg) for arg in args])
 

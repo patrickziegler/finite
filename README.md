@@ -1,9 +1,12 @@
 # finite
 
+[![Build Status](https://travis-ci.com/patrickziegler/finite.svg?token=exjtCndJ84wzTbpQPFcq&branch=master)](https://travis-ci.com/patrickziegler/finite)
+
 ### Prerequisites
 
-The following librarys are needed
+The following packages are needed
 
+* `python` (>= 3.5)
 * `numpy`
 * `setuptools`
 * `unittest`
