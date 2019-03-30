@@ -54,9 +54,7 @@ class FiniteField:
         for element in range(1, cls.modulo):
             yield element
 
-    def __init__(self, value, modulo=None):
-        if modulo is not None:
-            self.modulo = modulo
+    def __init__(self, value):
         try:
             self.value = value % self.modulo
         except TypeError:

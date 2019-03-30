@@ -24,12 +24,11 @@ class EuclidTest(unittest.TestCase):
         self.assertEqual(d, Poly(1, 1))
 
     def test_euclid_3(self):
-        z13 = FiniteField.factory(modulo=13)
-        poly = Poly.factory(field=z13)
-        a = poly(1, 6, 11, 6)
-        b = poly(2, 7, 7, 12)
+        PolyMod13 = Poly.factory(modulo=13)
+        a = PolyMod13(1, 6, 11, 6)
+        b = PolyMod13(2, 7, 7, 12)
         d = gcd(a, b).as_monic()
-        self.assertEqual(d, poly(1, 3))
+        self.assertEqual(d, PolyMod13(1, 3))
 
 
 if __name__ == '__main__':

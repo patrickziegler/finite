@@ -15,6 +15,7 @@
 
 
 import numpy as np
+from .FiniteField import FiniteField
 
 
 def auto_cast_poly(fn):
@@ -43,13 +44,12 @@ class Poly:
     field = None
 
     @staticmethod
-    def factory(field=None):
+    def factory(modulo):
         class cls(Poly):
             pass
 
-        if field is not None:
-            cls.field = field
-            cls.__name__ = "Poly over Z/%d" % field.modulo
+        cls.field = FiniteField.factory(modulo=modulo)
+        cls.__name__ = "Poly over Z/%d" % cls.field.modulo
 
         return cls
 

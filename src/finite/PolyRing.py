@@ -15,7 +15,6 @@
 
 
 import numpy as np
-from .FiniteField import FiniteField
 from .Poly import Poly
 
 
@@ -59,8 +58,7 @@ def auto_cast_poly_ring(fn):
 
 class PolyRing:
 
-    field = FiniteField.factory(modulo=2)
-    poly_factory = Poly.factory(field=field)
+    poly_factory = Poly.factory(modulo=2)
     generator = poly_factory(1, 0, 1, 1)
     power = 3
 
@@ -69,8 +67,7 @@ class PolyRing:
         class cls(PolyRing):
             pass
 
-        cls.field = FiniteField.factory(modulo=modulo)
-        cls.poly_factory = Poly.factory(field=cls.field)
+        cls.poly_factory = Poly.factory(modulo=modulo)
 
         key = (modulo, power)
         if key in _known_generators.keys():
@@ -79,20 +76,20 @@ class PolyRing:
             raise NotImplementedError("Search for generator polynomials currently not implemented!")
 
         cls.power = power
-        cls.__name__ = "GF" + str(cls.field.modulo) + "^" + str(power)
+        cls.__name__ = "GF" + str(cls.poly_factory.field.modulo) + "^" + str(power)
 
         return cls
 
     @classmethod
     def __len__(cls):
-        return cls.field.modulo ** cls.power
+        return cls.poly_factory.field.modulo ** cls.power
 
     @classmethod
     def elements(cls):
         """
         :return: yields all *non-zero* elements of this polynomial ring
         """
-        for value in range(1, cls.field.modulo ** cls.power):
+        for value in range(1, cls.poly_factory.field.modulo ** cls.power):
             yield cls(value)
 
     def __init__(self, value):
@@ -106,7 +103,7 @@ class PolyRing:
                 self.poly_factory(
                     *np.flip(
                         np.asarray(
-                            [c for c in dec2repr(value, self.field.modulo)]
+                            [c for c in dec2repr(value, self.poly_factory.field.modulo)]
                         )
                     )
                 ),
