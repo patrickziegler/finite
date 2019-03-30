@@ -16,20 +16,25 @@ The following librarys are needed
 git clone --recursive https://github.com/patrickziegler/finite.git && cd finite
 ```
 
-2. Create a virtual environment and create symbolic links to this package
+2. Create and activate a virtual environment
 ```bash
 export PREFIX=.
 python3 -m virtualenv "${PREFIX}/env" --system-site-packages
 source "${PREFIX}/env/bin/activate"
+```
+
+3. Install dependencies (in virtual environment) and create symbolic links to this package
+```bash
+pip install -r requirements.txt
 ./setup.py develop --prefix "${PREFIX}/env"
 ```
 
-3. Run the tests
+3. Run the tests (should also work outside the virtual environment)
 ```bash
 ./setup.py test
 ```
 
-4. Build and install to another destination *(alternative)*
+4. System-wide installation
 ```bash
 ./setup.py install
 ```
