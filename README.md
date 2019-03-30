@@ -1,6 +1,6 @@
 # finite
 
-[![Build Status](https://travis-ci.com/patrickziegler/finite.svg?token=exjtCndJ84wzTbpQPFcq&branch=master)](https://travis-ci.com/patrickziegler/finite)
+[![Build Status](https://travis-ci.com/patrickziegler/finite.svg?branch=master)](https://travis-ci.com/patrickziegler/finite)
 
 ### Prerequisites
 
