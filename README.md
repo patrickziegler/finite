@@ -9,7 +9,6 @@ The following packages are needed
 * `python` (>= 3.5)
 * `numpy`
 * `setuptools`
-* `unittest`
 * `virtualenv` (optional)
 
 ### Build and Install
