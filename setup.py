@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from setuptools import setup, find_packages
-import unittest
 
 
 setup(
@@ -14,5 +13,5 @@ setup(
     ],
     packages=find_packages("src"),
     package_dir={"": "src"},
-    test_suite="test.find_all"
+    test_suite="tests"
 )

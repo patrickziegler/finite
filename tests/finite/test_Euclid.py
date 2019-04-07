@@ -1,6 +1,5 @@
-import unittest
-
 from finite import *
+import unittest
 
 
 class EuclidTest(unittest.TestCase):
@@ -24,7 +23,3 @@ class EuclidTest(unittest.TestCase):
         b = PolyMod13(2, 7, 7, 12)
         d = gcd(a, b).as_monic()
         self.assertEqual(d, PolyMod13(1, 3))
-
-
-if __name__ == '__main__':
-    unittest.main()

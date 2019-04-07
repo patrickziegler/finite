@@ -1,6 +1,5 @@
-import unittest
-
 from finite import *
+import unittest
 
 
 class FiniteFieldTest(unittest.TestCase):
@@ -42,7 +41,3 @@ class FiniteFieldTest(unittest.TestCase):
         a, b = z23(7), z23(7)
         self.assertEqual(b.inverse(), z23(10))
         self.assertEqual(a / b, 1)
-
-
-if __name__ == '__main__':
-    unittest.main()

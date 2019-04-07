@@ -1,6 +1,5 @@
-import unittest
-
 from finite import *
+import unittest
 
 
 class PolyRingTest(unittest.TestCase):
@@ -40,7 +39,3 @@ class PolyRingTest(unittest.TestCase):
 
         self.assertEqual(s, PolyMod2(1, 1, 0, 1, 1))
         self.assertEqual(sgf2, PolyMod2(1, 1, 0))
-
-
-if __name__ == '__main__':
-    unittest.main()

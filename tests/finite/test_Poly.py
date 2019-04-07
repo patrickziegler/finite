@@ -1,6 +1,5 @@
-import unittest
-
 from finite import *
+import unittest
 
 
 class PolyTest(unittest.TestCase):
@@ -35,7 +34,3 @@ class PolyTest(unittest.TestCase):
         v = [p.at(z13(a ** k)) for k in range(12)]
         ref = [z13(x) for x in [3, 1, 4, 7, 8, 1, 2, 8, 5, 6, 3, 2]]
         self.assertEqual(v, ref)
-
-
-if __name__ == '__main__':
-    unittest.main()
