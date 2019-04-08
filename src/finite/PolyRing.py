@@ -15,7 +15,7 @@
 
 
 import numpy as np
-from finite.Poly import Poly
+from .Poly import Poly
 
 
 _known_generators = {
@@ -93,7 +93,7 @@ class PolyRing:
             yield cls(value)
 
     def __init__(self, value):
-        if hasattr(value, "coeff"):
+        if hasattr(value, "poly") or hasattr(value, "coeff"):
             _, self.poly = divmod(
                 value,
                 self.generator
@@ -101,7 +101,7 @@ class PolyRing:
         else:
             _, self.poly = divmod(
                 self.poly_factory(
-                    *np.flip(
+                    np.flip(
                         np.asarray(
                             [c for c in dec2repr(value, self.poly_factory.field.modulo)]
                         )
@@ -112,6 +112,9 @@ class PolyRing:
 
     def __repr__(self):
         return self.poly.__repr__()
+
+    def __abs__(self):
+        return abs(self.poly)
 
     @auto_cast_poly_ring
     def __eq__(self, other):
@@ -159,6 +162,12 @@ class PolyRing:
     def __divmod__(self, other):
         q, r = divmod(self.poly, other.poly)
         return self.__class__(q), self.__class__(r)
+
+    def as_decimal(self):
+        degree = len(self.poly.coeff) - 1
+        return np.sum(
+            [c.value * self.poly.field.modulo ** (degree - i) for i, c in enumerate(self.poly.coeff)]
+        )
 
     def as_monic(self):
         return self.poly.as_monic()

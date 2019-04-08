@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from finite.Euclid import extended_euclidean
+from .Euclid import extended_euclidean
 
 
 def auto_cast_finite_field(fn):
@@ -43,10 +43,6 @@ class FiniteField:
         return cls
 
     @classmethod
-    def __len__(cls):
-        return cls.modulo
-
-    @classmethod
     def elements(cls):
         """
         :return: yields all *non-zero* field elements
@@ -54,14 +50,26 @@ class FiniteField:
         for element in range(1, cls.modulo):
             yield element
 
+    @classmethod
+    def ndmap(cls, arr):
+        """
+        :param arr: numpy array of arbitrary shape
+        :return:  numpy array with same shape as 'arr'
+        with all elements casted to instances of this class
+        """
+        import numpy as np
+        tmp = [cls(e) for e in np.nditer(arr)]
+        return np.asarray(tmp).reshape(arr.shape)
+
     def __init__(self, value):
-        try:
-            self.value = value % self.modulo
-        except TypeError:
+        if hasattr(value, "value"):
             self.value = value.value % self.modulo
+        else:
+            self.value = value % self.modulo
 
     def __repr__(self):
-        return "(" + str(self.value) + " mod " + str(self.modulo) + ")"
+        # return "(" + str(self.value) + " mod " + str(self.modulo) + ")"
+        return str(self.value)
 
     def __abs__(self):
         return abs(self.value)

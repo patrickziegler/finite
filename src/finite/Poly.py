@@ -15,7 +15,18 @@
 
 
 import numpy as np
-from finite.FiniteField import FiniteField
+from .FiniteField import FiniteField
+
+
+class DummyMeta(type):
+
+    def __call__(cls, arg):
+        return arg
+
+
+class Dummy(metaclass=DummyMeta):
+
+    modulo = None
 
 
 def auto_cast_poly(fn):
@@ -23,15 +34,11 @@ def auto_cast_poly(fn):
     def wrapper(self, other):
         if hasattr(other, "coeff"):
             try:
-                if (self.field is None and other.field is None) or \
-                        (self.field.modulo == other.field.modulo):
-
+                if self.field.modulo == other.field.modulo:
                     return fn(self, other)
 
             except AttributeError:
-                pass
-
-            raise ValueError("Operands must be defined over the same finite domain!")
+                raise ValueError("Operands must be defined over the same finite domain!")
 
         else:
             return fn(self, self.__class__(other))
@@ -41,7 +48,7 @@ def auto_cast_poly(fn):
 
 class Poly:
 
-    field = None
+    field = Dummy
 
     @staticmethod
     def factory(modulo):
@@ -54,16 +61,14 @@ class Poly:
         return cls
 
     def __init__(self, *args):
-        if self.field is None:
-            self.coeff = np.asarray(args)
+
+        if len(args) == 1 and hasattr(args[0], "__iter__"):
+            self.coeff = np.asarray([self.field(arg) for arg in args[0]])
+
         else:
             self.coeff = np.asarray([self.field(arg) for arg in args])
 
         self.trim()
-
-    @classmethod
-    def from_array(cls, coeff):
-        return cls(*coeff).trim()
 
     def __repr__(self):
         return " + ".join([str(c) + "*X^" + str(len(self.coeff) - i - 1) for i, c in enumerate(self.coeff)])
@@ -84,27 +89,27 @@ class Poly:
 
     @auto_cast_poly
     def __add__(self, other):
-        return self.from_array(np.polyadd(self.coeff, other.coeff))
+        return self.__class__(np.polyadd(self.coeff, other.coeff))
 
     @auto_cast_poly
     def __radd__(self, other):
-        return self.from_array(np.polyadd(other.coeff, self.coeff))
+        return self.__class__(np.polyadd(other.coeff, self.coeff))
 
     @auto_cast_poly
     def __sub__(self, other):
-        return self.from_array(np.polysub(self.coeff, other.coeff))
+        return self.__class__(np.polysub(self.coeff, other.coeff))
 
     @auto_cast_poly
     def __rsub__(self, other):
-        return self.from_array(np.polysub(other.coeff, self.coeff))
+        return self.__class__(np.polysub(other.coeff, self.coeff))
 
     @auto_cast_poly
     def __mul__(self, other):
-        return self.from_array(np.polymul(self.coeff, other.coeff))
+        return self.__class__(np.polymul(self.coeff, other.coeff))
 
     @auto_cast_poly
     def __rmul__(self, other):
-        return self.from_array(np.polymul(other.coeff, self.coeff))
+        return self.__class__(np.polymul(other.coeff, self.coeff))
 
     @auto_cast_poly
     def __truediv__(self, other):
@@ -127,29 +132,29 @@ class Poly:
         diff = abs(self) - abs(other)
 
         if diff < 0:
-            return 0, self.from_array(self.coeff)
+            return 0, self.__class__(self.coeff)
 
         q = [0] * (diff + 1)
-        r = self.from_array(self.coeff)
+        r = self.__class__(self.coeff)
 
         zero = self.__class__(0)
 
         for i in range(len(q)):
 
             q[i] = r.lc() / other.lc()
-            r = r - other * self.from_array([q[i]] + [0] * (abs(r) - abs(other)))
+            r = r - other * self.__class__([q[i]] + [0] * (abs(r) - abs(other)))
 
             if r.trim() == zero:
                 break
 
-        return self.from_array(q), r
+        return self.__class__(q), r
 
     def as_monic(self):
         """
         :return: copy of this polynomial with all coefficients
         divided by the most significant one
         """
-        p = self.from_array(self.coeff)
+        p = self.__class__(self.coeff)
         p.coeff /= self.coeff[0]
         return p
 
