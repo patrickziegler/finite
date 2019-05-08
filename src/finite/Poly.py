@@ -14,8 +14,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+from finite.FiniteField import FiniteField
 import numpy as np
-from .FiniteField import FiniteField
 
 
 class DummyMeta(type):

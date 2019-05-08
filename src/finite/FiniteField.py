@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from .Euclid import extended_euclidean
+from finite.Euclid import extended_euclidean
 
 
 def auto_cast_finite_field(fn):

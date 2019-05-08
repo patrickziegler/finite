@@ -14,8 +14,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+from finite.Poly import Poly
 import numpy as np
-from .Poly import Poly
 
 
 _known_generators = {

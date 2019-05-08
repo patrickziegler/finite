@@ -1,4 +1,4 @@
-from .Euclid import extended_euclidean, gcd, lcm
-from .FiniteField import FiniteField
-from .Poly import Poly
-from .PolyRing import PolyRing
+from finite.Euclid import extended_euclidean, gcd, lcm
+from finite.FiniteField import FiniteField
+from finite.Poly import Poly
+from finite.PolyRing import PolyRing
