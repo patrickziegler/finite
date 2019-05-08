@@ -7,7 +7,6 @@
 The following packages are needed
 
 * `python` (>= 3.5)
-* `numpy`
 * `setuptools`
 * `virtualenv` (optional)
 
@@ -28,17 +27,12 @@ source "${PREFIX}/env/bin/activate"
 3. Install dependencies (in virtual environment) and create symbolic links to this package
 ```bash
 pip install -r requirements.txt
-./setup.py develop --prefix "${PREFIX}/env"
+python setup.py develop --prefix "${PREFIX}/env"
 ```
 
 3. Run the tests (should also work outside the virtual environment)
 ```bash
-./setup.py test
-```
-
-4. System-wide installation
-```bash
-./setup.py install
+python setup.py test
 ```
 
 ## Authors
